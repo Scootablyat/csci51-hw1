@@ -3,12 +3,6 @@
 #include <string>
 #include <vector>
 
-int grid_size;
-int p_x;
-int p_y;
-int e_x;
-int e_y;
-
 /*
     PLAYER POSITION IS DENOTED BY 'O' IN THE GRID
     ENEMY'S POSITION IS DENOTED BY 'X IN THE GRID
@@ -35,7 +29,12 @@ struct cell{
     int y;
 };
 
-void getSettings(){
+int getSettings(std::string setting){
+    int grid_size;
+    int p_x;
+    int p_y;
+    int e_x;
+    int e_y;
     std::fstream settingsFile;
     settingsFile.open("settings.txt", std::ios::in);
     std::string line;
@@ -43,23 +42,24 @@ void getSettings(){
     if(settingsFile.is_open()){
         while(std::getline(settingsFile, line)){
             //std::cout << line << std::endl;
-            if(line.find("grid_size = ") == 0){
-                grid_size = std::stoi(line.erase(0,11));
+            if(line.find("grid_size = ") == 0 && setting == "gridSize"){
+                return grid_size = std::stoi(line.erase(0,11));
             }
-            if(line.find("p_x = ") == 0){
-                p_x = std::stoi(line.erase(0,6));
+            if(line.find("p_x = ") == 0 && setting == "playerPos-x"){
+                return p_x = std::stoi(line.erase(0,6));
             }
-            if(line.find("p_y = ") == 0){
-                p_y = std::stoi(line.erase(0,6));
+            if(line.find("p_y = ") == 0 && setting == "playerPos-y"){
+                return p_y = std::stoi(line.erase(0,6));
             }
-            if(line.find("e_x = ") == 0){
-                e_x = std::stoi(line.erase(0,6));
+            if(line.find("e_x = ") == 0 && setting == "enemyPos-x"){
+                return e_x = std::stoi(line.erase(0,6));
             }
-            if(line.find("e_y = ") == 0){
-                e_y = std::stoi(line.erase(0,6));
+            if(line.find("e_y = ") == 0 && setting == "enemyPos-y"){
+                return e_y = std::stoi(line.erase(0,6));
             }
         }
     }
+    return 0;
 }
 
 std::vector<std::vector<cell>> createGrid(int grid_size, player p, enemy e){
@@ -92,8 +92,8 @@ std::vector<std::vector<cell>> createGrid(int grid_size, player p, enemy e){
 
 
 void displayGrid(std::vector<std::vector<cell>> grid){
-    for (size_t i = 0; i < grid_size; i++){
-        for (size_t j = 0; j < grid_size; j++){
+    for (size_t i = 0; i < grid.size(); i++){
+        for (size_t j = 0; j < grid.size(); j++){
             std::cout << grid[i][j].content << " [" << i << ", " << j << "] ";
         }
         std::cout << std::endl;
@@ -101,15 +101,14 @@ void displayGrid(std::vector<std::vector<cell>> grid){
 }
 
 int main(){
-    getSettings();
     player p1;
     enemy e1;
-    p1.x = p_x;
-    p1.y = p_y;
-    e1.x = e_x;
-    e1.y = e_y;
+    p1.x = getSettings("playerPos-x");
+    p1.y = getSettings("playerPos-y");
+    e1.x = getSettings("enemyPos-x");
+    e1.y = getSettings("enemyPos-y");
 
-    std::vector<std::vector<cell>> playGrid = createGrid(grid_size, p1, e1);
+    std::vector<std::vector<cell>> playGrid = createGrid(getSettings("gridSize"), p1, e1);
     displayGrid(playGrid);
     return 0;   
 }
