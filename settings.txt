@@ -1,0 +1,5 @@
+grid_size = 9
+p_x = 1
+p_y = 1
+e_x = 4
+e_y = 4
