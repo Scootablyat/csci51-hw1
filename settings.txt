@@ -1,5 +1,5 @@
-grid_size = 5
-p_x = 4
-p_y = 3
+grid_size = 9
+p_x = 8
+p_y = 8
 e_x = 0
 e_y = 0

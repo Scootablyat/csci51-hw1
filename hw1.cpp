@@ -6,6 +6,12 @@
 /*
     PLAYER POSITION IS DENOTED BY 'O' IN THE GRID
     ENEMY'S POSITION IS DENOTED BY 'X IN THE GRID
+
+    Settings.txt file:
+    grid_size - determines size of the grid, input any number to display a grid of that size
+    p_x and p_y - determines player x and y position respectively (cannot be larger than grid_size - 1)
+    e_x and e_y - determines enemy x and y position respectively (cannot be larger than grid_size - 1)
+    
 */
 
 struct player
